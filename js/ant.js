@@ -225,9 +225,13 @@ Ant.prototype = {
 			if (data.element_hide !== undefined) { s.hide (); }
 			if (data.element_show !== undefined) { s.show (); }
 			if (data.element_toggle !== undefined) { s.toggle (); }
-			if (data.element_attrs) { s.attr (data.element_attrs); 
+			if (data.element_attrs) { 
+				//s.attr (data.element_attrs); 
 				if (data.element_attrs === Object (data.element_attrs)) { 
-					data.element_attrs = JSON.stringify (val);
+					data.element_attrs = Object (data.element_attrs);
+					console.log (data.element_attrs);
+					console.log (data.control_element);
+					console.log (s);
 					s.attr (data.element_attrs);
 				}
 			}
@@ -310,13 +314,13 @@ Ant.prototype = {
 			else {
 				var me = this;
 				$(data.parse).each (function () { me.parseElement.apply (me, [$(this) [0]], false); });
-				/*
-				var x = data.parse.split (",");
-				for (var e in x) { 
-					this.parseElement ("#" + x[e].trim (), false);
-				}
-				*/
-
+			}
+		}
+		if (data.parse_sequence) {
+			var x = data.parse_sequence.split (",");
+			var me = this;
+			for (var e in x) {
+				$(x[e]).each  (function () { me.parseElement.apply (me, [$(this) [0]], false); });
 			}
 		}
 		/*
@@ -419,7 +423,7 @@ Ant.prototype = {
 		var l = this.charts [map].topologies [layer];
 		l.redraw (this.setFeatureId (this.conf.data [layer]), qn, plot);
 		l.on ("click", function (a, id, x, el) { this.parseElement (el); }, this); 
-		l.on ("mouseover", function (a, id, x, el) { console.log ("*"); console.log (el); this.parseElement (el); }, this); 
+		l.on ("mouseover", function (a, id, x, el) { this.parseElement (el); }, this); 
 		l.on ("mouseout", function (a, id, x, el) { this.parseElement (el); }, this); 
 		this.charts [map].reZoom ();
 	},
@@ -1114,8 +1118,6 @@ ant.charts.map = function (container, width, height) {
 			bright.push (bn [1] [0]);
 			bbottom.push (bn [1] [1]);
 		}
-		console.log (e);
-		console.log (bounds);
 		var minLeft = Math.min.apply (null, bleft), maxRight = Math.max.apply (null, bright), 
 			minTop = Math.min.apply (null, btop), maxBottom = Math.max.apply (null, bbottom),
 			height = maxBottom - minTop, width = maxRight - minLeft; 

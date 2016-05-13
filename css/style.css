@@ -14,10 +14,82 @@ body {
 	padding: 0 !important;
 	margin: 0 !important;
 }
+#legend {
+	position: absolute;
+	top: 80%;
+	left: 5px;
+	width: 25%;
+	height: 15%;
+	border: 1px solid black;
+	background-color: rgba(255,255,255,0.8);
+}
 #cdmx {
 	height: 100%;
 }
+.simat path, .grid path {
+	display: none;
+}
+.simat circle {
+	fill: red;
+}
+.grid circle {
+	fill: purple;
+}
 .cdmx path {
 	fill: none;
-	stroke: red;
+	stroke: rgba(233,233,233,0.4);
+	stroke-width: 0.5px;
+	stroke-opacity: 0.2;
+	fill: rgba(233,233,233,0.1);
+}
+.cdmx path.zmvm { 
+	stroke-width: 1.3px;
+	fill: rgba(233,233,233,0.3);
+	stroke-opacity: 0.5;
+}
+.cdmx path.zmvm:hover {
+	stroke-opacity: 1;
+}
+.cdmx path.mex { 
+	stroke: #3366ff;
+}
+.cdmx path.mor { 
+	stroke: #009900;
+}
+.cdmx path.cdmx { 
+	stroke: #ff0066;
+}
+.legend th.color {
+	width: 35%;
+}
+.legend table {
+	width: 90%;
+	margin: 2px;
+	border-collapse: collapse;
+}
+#legend {
+	display: none;
+}
+.legend td { 
+	text-align: right;
+}
+.legend th.mex {
+	background-color: #3366ff;
+	opacity: 0.7;
+}
+.legend th.cdmx {
+	background-color: #ff0066;
+	opacity: 0.7;
+}
+.legend th.mor {
+	background-color: #009900;
+	opacity: 0.7;
+}
+@media all and (orientation:landscape) {
+	#fixed { 
+		top: 0;
+		left: 50%;
+		width: 50%;
+		height: 100%;
+	}	
 }

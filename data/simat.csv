@@ -1,0 +1,62 @@
+CLAVE,ZONA,NOMBRE,RAMA,REDMA,REDDA,REDMET,LATITUD,LONGITUD
+ACO,NE,Acolman,Activa,,,,-98.912468,19.635542
+ARA,NE,Aragón,Inactiva,,,,,
+ATI,NO,,Activa,,,,-99.254005,19.577141
+AZC,NO,Azcapotzalco,Inactiva,,,,,
+BJU,CE,Benito Juárez,Inactiva,,,,,
+CAM,NO,Camarones,Activa,,,,-99.169708,19.468384
+CES,SE,Cerro de la estrella,Inactiva,Activa,Inactiva,Activa,,
+CFE,SO,Museo Tecnológico de la CFE,,Inactiva,,,,
+CHA,NE,Chapingo,,Inactiva,Activa,Activa,-98.904266,19.463341
+CHO,SE,Chalco,Activa,,,,-98.886124,19.266987
+COR,SE,CORENA,,,Activa,,,
+COY,SO,Coyoacán,Activa,Activa,,,-99.157097,19.350252
+CUA,SO,Cuajimalpa,Activa,,,Activa,-99.291817,19.365318
+CUI,NO,Cuitláhuac,Inactiva,,,,,
+DIC,SO,Diconsa,,,Activa,,,
+EAC,NO,ENEP Acatlán,,,,Activa,,
+EAJ,SO,Ecoguardas Ajusco,,,Activa,,,
+EDL,SO,Ex convento Desierto de los Leones,,,Activa,,,
+FAC,NO,FES Acatlán,Activa,,,,-99.242935,19.482128
+FAN,SO,Felipe Ángeles,,Inactiva,,,,
+HAN,CE,Hangares,Inactiva,Inactiva,,Inactiva,,
+IBM,NO,IBM Legaria,,,Activa,,,
+IMP,NO,Instituto Mexicano del Petróleo,Inactiva,,,Activa,,
+INE,SO,Instituto Nacional de Ecología,,,Inactiva,,,
+IZT,CE,Iztacalco,Activa,,,,-99.117615,19.38439
+LAA,NO,Laboratorio de Análisis Ambiental,,,Activa,,,
+LAG,CE,Lagunilla,Inactiva,,,,,
+LLA,NE,Los Laureles,Activa,,,,-99.039635,19.5788
+LOM,SO,Lomas,,Activa,Activa,,,
+LPR,NE,La presa,Activa,Activa,,,-99.11763,19.534649
+LVI,NE,La villa,Inactiva,,,,,
+MCM,CE,Museo de la ciudad de México,,Inactiva,Activa,,,
+MER,CE,Merced,Activa,Activa,,Activa,-99.119553,19.42507
+MIN,CE,Metro Insurgentes,Inactiva,,,,,
+MON,NE,Montecillo,Activa,,,,-98.902885,19.460411
+MPA,SE,Milpa Alta,,,Activa,,,
+NET,NE,Netzahualcóyotl,Inactiva,,,,,
+NEZ,NE,Nezahualcóyotl,Activa,,,,-99.028152,19.393736
+NTS,NE,Netzahualcóyotl Sur,,Activa,Activa,,,
+PAR,SO,Parres,,,Activa,,,
+PED,SO,Pedregal,Activa,Activa,Inactiva,Activa,-99.204109,19.325142
+PLA,SO,Plateros,Inactiva,,,Activa,,
+POT,CE,Portales,,Inactiva,,,,
+SAG,NE,San Agustín,Activa,Activa,,Activa,-99.030289,19.532915
+SHA,NO,Secretaría de Hacienda,,Activa,,,,
+SJA,NE,San Juan de Aragón,Activa,,,,-99.086014,19.45262
+SNT,SO,San Nicolás Totolapan,,,Activa,,,
+SUR,SO,Santa Úrsula,Activa,Inactiva,,Activa,-99.150002,19.314466
+TAC,NO,Tacuba,Inactiva,,,Activa,,
+TAH,SE,Tláhuac,Activa,,,Activa,-99.010567,19.246435
+TAX,SE,Taxqueña,Inactiva,Inactiva,,,,
+TEC,NE,Cerro del Tepeyac,,Inactiva,Activa,,,
+TLA,NO,Tlalnepantla,Activa,Activa,Activa,Activa,-99.204643,19.52877
+TLI,NO,Tultitlán,Activa,,,,-99.177116,19.602547
+TPN,SO,Tlaltpan,Activa,,,Activa,-99.184196,19.257006
+UIZ,SE,UAM Iztapalapa,Activa,Activa,,,-99.073929,19.360846
+VAL,NO,Vallejo,Inactiva,,,,,
+VIF,NE,Villa de las flores,Activa,,,Activa,-99.096588,19.658178
+VIR,NE,Virgencitas,,Inactiva,,,,
+XAL,NE,Xalostoc,Activa,Activa,Activa,Activa,-99.07679,19.528584
+XCH,SE,Xochimilco,,Inactiva,,,,
