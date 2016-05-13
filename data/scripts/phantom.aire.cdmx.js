@@ -10,22 +10,24 @@ page.onConsoleMessage = function(msg) {
 page.open ("http://www.aire.df.gob.mx/ultima-hora-reporte.php", function (status) { 
 	if (status === "success") {
 		page.evaluate (function () { 
-			var d = document.getElementById ("tabladf");
-			var trs = d.querySelectorAll ("tr");
+			var tbls = document.querySelectorAll ("#tabladf,#tablaedomex");
 			var t = [];
-			for (var i = 0; i < trs.length; i++) {
-				var d = [];
-				var tds = trs [i].querySelectorAll ("td");
-				for (var e = 0; e < tds.length; e++) {
-					var scripts = tds [e].querySelectorAll ("script");
-					//if (scripts.length > 0) { 
-						d.push (tds [e].innerText);
-					//} else {
-					//	d.push (tds [e].innerHTML);
-					//}
-				}
+			for (var x = 0; x < tbls.length; x++) {
+				var trs = tbls [x].querySelectorAll ("tr");
+				for (var i = 0; i < trs.length; i++) {
+					var d = [];
+					var tds = trs [i].querySelectorAll ("td");
+					for (var e = 0; e < tds.length; e++) {
+						var scripts = tds [e].querySelectorAll ("script");
+						//if (scripts.length > 0) { 
+							d.push (tds [e].innerText);
+						//} else {
+						//	d.push (tds [e].innerHTML);
+						//}
+					}
 
-				t.push (d);
+					t.push (d);
+				}
 			}
 
 			for (var a in t) {
