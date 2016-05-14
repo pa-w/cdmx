@@ -33,7 +33,7 @@ body {
 	fill: red;
 }
 .grid circle {
-	fill: purple;
+	fill: rgba(25,25,25,0.3);
 }
 .cdmx path {
 	fill: none;
