@@ -1,4 +1,4 @@
-Clave,Delegación,Calidad,Parámetro,Índice
+clave,delegacion,calidad,parametro,indice
 AJU,Tlalpan,BUENA,O3,19
 AJM,Tlalpan,BUENA,PM10,48
 BJU,Benito Juárez,REGULAR,PM10,52
@@ -18,7 +18,6 @@ SJA,Gustavo A. Madero,BUENA,O3,26
 TAH,Tláhuac,REGULAR,PM10,54
 UAX,Coyoacán,BUENA,O3,21
 UIZ,Iztapalapa,REGULAR,PM10,58
-Clave,Municipio,Calidad,Parámetro,Índice
 ACO,Acolman,BUENA,PM10,46
 ATI,Atizapán,REGULAR,PM10,61
 CHO,Chalco,REGULAR,PM10,73
