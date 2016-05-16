@@ -76,6 +76,12 @@ Ant.prototype = {
 				}
 			}
 			this.initCharts ();
+			cb = function (me) { 
+				return function (a) {
+					me.parseElement.apply (me, [this]);
+				}
+			}
+			$("[data-onload]").each (cb (this));
 		}
 	},
 	/*
@@ -229,9 +235,6 @@ Ant.prototype = {
 				//s.attr (data.element_attrs); 
 				if (data.element_attrs === Object (data.element_attrs)) { 
 					data.element_attrs = Object (data.element_attrs);
-					console.log (data.element_attrs);
-					console.log (data.control_element);
-					console.log (s);
 					s.attr (data.element_attrs);
 				}
 			}
@@ -303,6 +306,37 @@ Ant.prototype = {
 			console.log (data.debug);
 		}
 		/*
+		* Data download and parsing
+		*/
+		if (data.download) {
+			if (data.download_id && this.data [data.download_id]) { 
+				if (data.download_parse) {
+					var me = this;
+					$(data.download_parse).each (function () { me.parseElement.apply (me, [$(this) [0]]); });
+				}
+			} else {
+				var q = queue ();
+				var type = d3 [data.type ? data.type : "csv"];
+				if (!type) type = d3.csv;
+
+				q.defer (type, data.download)
+				q.await ($.proxy (function (err, d) { 
+					if ( this.conf.callbacks && data.download_processor && this.conf.callbacks [data.download_processor]) {
+						d = this.conf.callbacks [data.download_processor].apply (this, [d]); 
+					} else if (data.download_processor) {
+						console.log ("callback not found in config: " + data.download_processor);
+					}
+					this.data [data.download_id] = d; 
+
+					if (data.download_parse) {
+						var me = this;
+						$(data.download_parse).each (function () { me.parseElement.apply (me, [$(this) [0]]); });
+					}
+				}, this));
+			}
+			
+		}
+		/*
 		* Other elements to parse
 		*/
 		if (data.parse) { 
@@ -316,6 +350,9 @@ Ant.prototype = {
 				$(data.parse).each (function () { me.parseElement.apply (me, [$(this) [0]], false); });
 			}
 		}
+		/*
+		* This is a comma separated value and each of the elements will be treated as an independent selector and parsed in sequence
+		*/
 		if (data.parse_sequence) {
 			var x = data.parse_sequence.split (",");
 			var me = this;
@@ -1124,29 +1161,6 @@ ant.charts.map = function (container, width, height) {
 
 		this.svg.attr ({"viewBox": minLeft + " " + minTop + " " + width + " " + height});
 
-		/*
-		var scale = (context / 100) / Math.max (Math.max.apply (null, dx), Math.max.apply (null, dy)),
-			scale = 1,
-			translate = [width * this.refCenter [0] * Math.max.apply (null, x), height * this.refCenter [1] * Math.max.apply (null, y)];
-		scale = 1000;
-		console.log (scale);
-		console.log (dat);
-		console.log (Math.max.apply (null, dx));
-		console.log (translate);
-
-		this.svg
-			.selectAll ("path")
-			.attr ("vector-effect", "non-scaling-stroke")
-			.attr ("transform", "translate(" + translate + ")scale(" + scale + ")");
-		this.svg
-			.selectAll ("text")
-			.attr ("vector-effect", "non-scaling-stroke")
-			.attr ("transform", "translate(" + translate + ")scale(" + scale + ")");
-		this.svg
-			.selectAll ("circle")
-			.attr ("vector-effect", "non-scaling-stroke")
-			.attr ("transform", "translate(" + translate + ")scale(" + scale + ")")
-		*/
 	}
 	this.addFeatures = function (topo, collection, key, quantifier, plot) {
 		if (!plot) plot = "lines"

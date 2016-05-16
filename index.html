@@ -25,7 +25,7 @@
 			<a id="zoom_mex" data-control_chart="cdmx" data-zoom_to=".mex"></a>
 			<a id="zoom_mor" data-control_chart="cdmx" data-zoom_to=".mor"></a>
 			<a id="zoom_zmvm" data-control_chart="cdmx" data-zoom_to=".zmvm"></a>
-			<div id="legend">
+			<div id="legend" style="display: none;">
 				<a id="default_legend" data-control_element="#legend > .default" data-element_show data-debug="will show default legend"></a>
 				<a id="reset_legends" data-control_element="#legend > .legend" data-element_hide data-debug="will hide legends"></a>
 				<a id="set_default_legend" data-control_element="#legend" data-element_show data-parse_sequence="#default_legend,#reset_legends,#default_legend"></a>
@@ -43,11 +43,13 @@
 			</div>
 			<a id="quantify_simat" data-control_chart="cdmx" data-quantify="simat" data-quantifier="categorize"></a>
 			<a id="quantify_grid" data-control_chart="cdmx" data-quantify="grid" data-quantifier="categorize"></a>
-			<div id="cdmx" data-chart="map" data-map_layers="cdmx,grid,simat" data-map_center_lat="19.411244" data-map_center_lon="-99.135415" data-zoom_level="25000" data-quantify="cdmx" data-quantifier="categorize" data-parse_sequence="#zoom_zmvm,#set_default_legend,#quantify_simat,#quantify_grid"></div>
+			<div id="cdmx" data-chart="map" data-map_layers="cdmx,grid,simat" data-map_center_lat="19.411244" data-map_center_lon="-99.135415" data-zoom_level="25000" data-quantify="cdmx" data-quantifier="categorize" data-parse_sequence="#zoom_zmvm,#set_default_legend,#quantify_simat"></div>
 		</div>
 		<div id="movie" data-movie>
-			<div id="latest" data-parse=".estacion">
-			</div>
+		</div>
+		<div id="ctrls">
+			<div id="onload" data-onload data-parse_sequence=".download" data-debug="Will start download"></div>
+			<div id="download_callback" data-parse="#quantify_grid" data-debug="Completed download"></div>
 		</div>
 		<script src="js/cdmx.js"></script>
 	</body>
