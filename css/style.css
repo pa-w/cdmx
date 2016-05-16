@@ -14,12 +14,21 @@ body {
 	padding: 0 !important;
 	margin: 0 !important;
 }
+#movie {
+	padding-bottom: 100vh;
+}
+#movie > div {
+	height: 25vh;
+}
+#movie > div.highlight {
+	color: red;
+}
 #legend {
 	position: absolute;
 	top: 90%;
 	left: 0;
 	width: 100%;
-	height: 5%;
+	height: 30px;
 	padding: 1%;
 	border: 1px solid black;
 	background-color: rgba(255,255,255,0.8);
