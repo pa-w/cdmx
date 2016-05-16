@@ -40,7 +40,6 @@ $(document).ready (function () {
 							"debug": "download " + i 
 						}
 						if (i == limit - 1) dx ["download_parse"] = "#download_callback";
-						console.log( "here");
 
 						var d = $("<div id='download_" + i + "' class='download'>")
 							.data (dx)
@@ -54,7 +53,7 @@ $(document).ready (function () {
 							{"control_element": ".a_" + i + "_6", "element_attrs": {"r": 6} }
 						]
 						var desc = rows [i]["index"];
-						$("<div id='scene_'"+ i +">")
+						$("<div id='scene_"+ i +"'>")
 							.data ({parse: parse, debug: "Scene " + i})
 							.text (desc)
 							.appendTo ("#movie");
@@ -109,17 +108,16 @@ $(document).ready (function () {
 								if (!this.data [col]) console.log (col + " no existe"); 
 								if (this.data [col][e.properties.simat [s].cve]) {
 									var index = this.data [col][e.properties.simat [s].cve].indice.value,
-										domain = d3.scale.linear ().domain ([0, 150]);
+										domain = d3.scale.linear ().domain ([0, 200]);
 									scale.domain ([0, domain (index)]);
 									indices.push (index / scale (e.properties.simat [s].dist));
 								}
 
 							}
 							var maxIndex = Math.max.apply (null, indices);
-							scale.domain ([0, 100]).range ([0, 2, 4, 5, 6]); 
+							scale.domain ([0, 80]).range ([0, 2, 4, 5, 6]); 
 							cls += " a_" + i + "_" + scale (maxIndex);
 						}
-						console.log (cls);
 
 						return {"class": cls}
 					}
