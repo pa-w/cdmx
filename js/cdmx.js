@@ -31,7 +31,7 @@ $(document).ready (function () {
 				id: "index",
 				processor: function (rows) {
 					//var limit = rows.length;
-					var limit = 10;
+					var limit = 20;
 					for (var i = 0; i < limit; i++) {
 						var dx = {
 							"download": rows [i]["index"], 
@@ -46,13 +46,16 @@ $(document).ready (function () {
 
 						$("#ctrls").append (d);
 						var parse = [
-							{"control_element": ".pt", "element_attrs": {"r": 0} },
-							{"control_element": ".a_" + i + "_2", "element_attrs": {"r": 1} },
-							{"control_element": ".a_" + i + "_4", "element_attrs": {"r": 3} },
-							{"control_element": ".a_" + i + "_5", "element_attrs": {"r": 5} }, 
-							{"control_element": ".a_" + i + "_6", "element_attrs": {"r": 6} }
+							//{"control_element": ".pt", "element_attrs": {"r": 0}, "debug": "Resetting"},
+							{"control_element": ".a_" + i + "_0", "element_attrs": {"r": 0} },
+							{"control_element": ".a_" + i + "_1", "element_attrs": {"r": 1} },
+							{"control_element": ".a_" + i + "_2", "element_attrs": {"r": 2} },
+							{"control_element": ".a_" + i + "_3", "element_attrs": {"r": 3} }, 
+							{"control_element": ".a_" + i + "_4", "element_attrs": {"r": 4} }
 						]
-						var desc = rows [i]["index"];
+						var x = rows [i]["index"].split ("."), 
+							date = x [0].split ("/"), time = x [1], desc = time;
+
 						$("<div id='scene_"+ i +"'>")
 							.data ({parse: parse, debug: "Scene " + i})
 							.text (desc)
@@ -88,12 +91,6 @@ $(document).ready (function () {
 						return {"class": ent + " " + zmvm + " mun_" + e.properties.cvegeo };
 					} else if (e.properties.clave !== undefined) {
 					/* estaciones de monitoreo */
-						var data = {parse: [
-							//{"control_element": ".pt", "element_attrs": {"r": 0} },
-							{"control_element": "." + e.properties.clave + "_1", "element_attrs": {"r": 2} },
-							{"control_element": "." + e.properties.clave + "_2", "element_attrs": {"r": 1} },
-							{"control_element": "." + e.properties.clave + "_3", "element_attrs": {"r": 0.5} }
-						]};
 						return {"r": 3, "class": "estacion"} 
 					} else if (e.properties.simat !== undefined ) {
 					/* grid */
@@ -101,25 +98,28 @@ $(document).ready (function () {
 						which stations have an influence on this point: 1 to 3
 						*/
 						var scale = d3.scale.quantize ().range ([1, 2, 3])
+							debug = "...",
 							cls = "pt ", indices = [];
-						for (var i = 0; i < 10; i++) {
+						for (var i = 0; i < 20; i++) {
 							var col = "a_" + i;
 							for (var s in e.properties.simat) {
 								if (!this.data [col]) console.log (col + " no existe"); 
 								if (this.data [col] && this.data [col][e.properties.simat [s].cve]) {
 									var index = this.data [col][e.properties.simat [s].cve].indice.value,
-										domain = d3.scale.linear ().domain ([0, 200]);
+										domain = d3.scale.linear ().domain ([0, 150]);
 									scale.domain ([0, domain (index)]);
-									indices.push (index / scale (e.properties.simat [s].dist));
+									indices.push (index / (scale (e.properties.simat [s].dist) + 1));
 								}
 
 							}
 							var maxIndex = Math.max.apply (null, indices);
-							scale.domain ([0, 80]).range ([0, 2, 4, 5, 6]); 
-							cls += " a_" + i + "_" + scale (maxIndex);
+							scale.domain ([0, 80]).range ([0, 1, 2, 3, 4]); 
+							cls += " a_" + i + "_" + scale (maxIndex)  ;
 						}
-
-						return {"class": cls}
+						var data = {
+							"debug": debug
+						};
+						return {"class": cls, "data": data}
 					}
 				}
 			}
