@@ -106,7 +106,7 @@ $(document).ready (function () {
 							var col = "a_" + i;
 							for (var s in e.properties.simat) {
 								if (!this.data [col]) console.log (col + " no existe"); 
-								if (this.data [col][e.properties.simat [s].cve]) {
+								if (this.data [col] && this.data [col][e.properties.simat [s].cve]) {
 									var index = this.data [col][e.properties.simat [s].cve].indice.value,
 										domain = d3.scale.linear ().domain ([0, 200]);
 									scale.domain ([0, domain (index)]);
