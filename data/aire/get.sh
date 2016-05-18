@@ -5,7 +5,7 @@ cd /home/bots/cdmx/
 cp data/aire/latests.csv "data/aire/$DATE.csv"; 
 echo "index" > data/aire.csv
 find data/aire/ -name "*.csv" | sort -r >> data/aire.csv
-GIT_SSH_COMMAND='ssh -i /root/.ssh/paw-bot.id_rsa' git add "data/aire/$DATE.csv" data/aire.csv
-GIT_SSH_COMMAND='ssh -i /root/.ssh/paw-bot.id_rsa' git commit -m "Data from $DATE"
-GIT_SSH_COMMAND='ssh -i /root/.ssh/paw-bot.id_rsa' git push
+#GIT_SSH_COMMAND='ssh -i /root/.ssh/paw-bot.id_rsa' git add "data/aire/$DATE.csv" data/aire.csv
+#GIT_SSH_COMMAND='ssh -i /root/.ssh/paw-bot.id_rsa' git commit -m "Data from $DATE"
+#GIT_SSH_COMMAND='ssh -i /root/.ssh/paw-bot.id_rsa' git push
 
