@@ -170,7 +170,7 @@ Ant.prototype = {
 			if (quantify && quantifier) {
 				var qObj = {fn: quantifier, ar: qArgs};
 				try {
-					qObj.data = this.prequantify (this.data [quantify], qObj);
+					qObj.data = this.prequantify (qObj);
 					if (!qObj.data) qObj.data = this.data [quantify];
 					if (chartType == "lines" || chartType == "bars" || chartType == "pie") {
 						this.quantifyChart (controlChart, qObj);
@@ -321,7 +321,21 @@ Ant.prototype = {
 
 				q.defer (type, data.download)
 				q.await ($.proxy (function (err, d) { 
-					if ( this.conf.callbacks && data.download_processor && this.conf.callbacks [data.download_processor]) {
+					if (data.download_clone && data.download_clone_into) {
+						var me = this, cont = d3.select (data.download_clone_into);
+						var sel = cont.selectAll (data.download_clone) 
+								.data (d)
+								.enter ().append (data.download_clone)
+								.each (function (dt, idx) { 
+									var fn = me.conf.callbacks [data.download_clone_callback]
+									if (fn) { 
+										fn.apply (me, [this, dt, idx, d.length ? d.length : -1]); 
+									} else {
+										console.log ("No callback on download: " + data.download_clone_callback); 
+									}
+								});
+					}
+					if (this.conf.callbacks && data.download_processor && this.conf.callbacks [data.download_processor]) {
 						d = this.conf.callbacks [data.download_processor].apply (this, [d]); 
 					} else if (data.download_processor) {
 						console.log ("callback not found in config: " + data.download_processor);
@@ -364,8 +378,7 @@ Ant.prototype = {
 		* IMPORTANT! DO not put any more code here as we need to make sure that the other elements are parsed after everything else, to avoid weird behaviour. 
 		*/
 	},
-	prequantify: function (data, quantifier) {
-		if (!data) throw "No data... " + quantifier;
+	prequantify: function (quantifier) {
 		if (this.conf.prequantifiers) {
 			var pq = quantifier ? this.conf.prequantifiers [quantifier.fn] : null;
 			if (pq) { 
@@ -933,9 +946,12 @@ asChart.call (ant.charts.bars.prototype);
 asBars.call (ant.charts.bars.prototype);
 var asLines = function () {
 	this.redraw  = function (d, quantifier) { 
+		if (!d || !d.scale) return;
 		this.callbacks = {};
 		var data = d.data;
 		d.scale.range ([this.height, 0]); // this comes from the prequantifier and it is used by the quantifier 
+
+
 		var lines = data; //TODO verify if this works with a single line..
 		if (data.nests == 2) {
 			lines = data.items ();
@@ -975,26 +991,6 @@ var asLines = function () {
 					}
 					rs.push (rets [i].r);
 
-					var circle = container.insert ("circle")
-						.on ("click", this.createCallback ("click"))
-						.on ("mouseover", this.createCallback ("mouseover"));
-					this.setElementAttributes (circle, {"class": rets [i]["class"], x: rets [i].x, y: rets [i].y});
-					if (rets [i].value) {
-						var text = container.append("text").text (rets [i].value);
-						this.setElementAttributes (text, {"class": rets [i]["class"], x: rets [i].x, y: rets [i].y});
-						text.classed ("value", true);
-					}
-					if (rets [i].label) {
-						var text = container.append ("text").text (rets [i].label);
-						this.setElementAttributes (text, {"class": rets [i]["class"], x: rets [i].x, y: cHeight});
-						text.classed ("label", true);
-					}
-					if (rets [i].note) {
-						var text = container.append ("text").text (rets [i].note);
-						this.setElementAttributes (text, {"class": rets [i]["class"], x: rets [i].x, y: 10});
-						text.classed ("note", true);
-
-					}
 				}
 				var x = function (d, e) { return d.x; };
 				var y = function (d, e) { return d.y; };
@@ -1026,6 +1022,27 @@ var asLines = function () {
 					attrs.height = cHeight - attrs.y;
 					this.setElementAttributes (col, attrs);
 					col.classed ("column", true);
+
+					var circle = container.insert ("circle")
+						.on ("click", this.createCallback ("click"))
+						.on ("mouseover", this.createCallback ("mouseover"));
+					this.setElementAttributes (circle, {"class": rets [i]["class"], cx: rets [i].x, cy: rets [i].y, r: rets [i].r});
+					if (rets [i].value) {
+						var text = container.append("text").text (rets [i].value);
+						this.setElementAttributes (text, {"class": rets [i]["class"], x: rets [i].x, y: rets [i].y});
+						text.classed ("value", true);
+					}
+					if (rets [i].label) {
+						var text = container.append ("text").text (rets [i].label);
+						this.setElementAttributes (text, {"class": rets [i]["class"], x: rets [i].x, y: cHeight, "transform": "rotate(-90,"+ rets [i].x +","+ cHeight +")"});
+						text.classed ("label", true);
+					}
+					if (rets [i].note) {
+						var text = container.append ("text").text (rets [i].note);
+						this.setElementAttributes (text, {"class": rets [i]["class"], x: rets [i].x, y: 10, "transform": "rotate(90,"+ rets [i].x+","+10+")"});
+						text.classed ("note", true);
+
+					}
 				}
 
 				return attrs;
@@ -1034,6 +1051,10 @@ var asLines = function () {
 
 		var quantifierCb = this.quantifierCallback, me = this; 
 		this.svg.selectAll ("g").remove (); //HACK lets see later how to UPDATE them the elements instead of just removing all... 
+
+		var yAxis = d3.svg.axis().scale (d.scale).tickSize (this.width).orient ("right");
+		this.svg.append ("g").attr("class", "axis").attr ("transform", "translate(0,0)").call (yAxis);
+
 		for (var i in lines) { 
 			var line = lines [i];
 			var bar = this.svg.append ("g")

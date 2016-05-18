@@ -18,14 +18,48 @@ body {
 	padding-bottom: 100vh;
 }
 #movie > div {
-	height: 25vh;
 }
 #movie > div.highlight {
 	color: red;
 }
+.axis path {
+	display: none;
+}
+.axis line {
+	stroke: #777;
+	stroke-dasharray: 1,1;
+}
+rect.background {
+	display: none !important;
+}
+rect.column,rect.square {
+	display: none !important;
+}
+circle {
+}
+circle.regular { 
+	fill: rgba(255,255,102,0.5);
+	stroke: black;
+}
+circle.buena {
+	fill: rgba(51,204,51, 0.5);
+	stroke: black;
+}
+circle.mala {
+	fill: rgba(255,0,0,0.5);
+	stroke: black;
+}
+path.line {
+	display: none;
+}
+text.note {
+	font-size: 8px;
+}
+text.value {
+}
 #legend {
 	position: absolute;
-	top: 90%;
+	top: 55%;
 	left: 0;
 	width: 100%;
 	height: 30px;
@@ -56,7 +90,7 @@ body {
 	opacity: 0.7;
 }
 #cdmx {
-	height: 100%;
+	height: 60%;
 }
 .simat path, .grid path {
 	display: none;

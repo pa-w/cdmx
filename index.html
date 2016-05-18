@@ -43,14 +43,16 @@
 			</div>
 			<a id="quantify_simat" data-control_chart="cdmx" data-quantify="simat" data-quantifier="categorize"></a>
 			<a id="quantify_grid" data-control_chart="cdmx" data-quantify="grid" data-quantifier="categorize"></a>
+			<!-- map -->
 			<div id="cdmx" data-chart="map" data-map_layers="cdmx,grid,simat" data-map_center_lat="19.411244" data-map_center_lon="-99.135415" data-zoom_level="25000" data-quantify="cdmx" data-quantifier="categorize" data-parse_sequence="#zoom_zmvm,#set_default_legend,#quantify_simat"></div>
+			<div id="calidad" data-chart="lines"></div>
+			<!-- -->
 		</div>
-		<div id="movie" data-movie>
-		</div>
+		<div id="movie" data-movie></div>
 		<div id="ctrls">
-			<div id="onload" data-onload data-parse_sequence=".download" data-debug="Will start download"></div>
-			<div id="scroll_to_top" data-control_scroll="movie" data-scroll_to="scene_0"></div>
-			<div id="download_callback" data-parse_sequence="#quantify_grid,#scroll_to_top" data-debug="Completed download"></div>
+			<div data-onload data-download="data/aire.csv" data-download_clone="div" data-download_clone_into="#movie" data-download_clone_callback="cloner" data-download_parse="#aire_callback"></div>
+			<div id="aire_callback" data-callback="initScrolls" data-parse_sequence=".download"></div>
+			<div id="download_callback" data-parse="#quantify_grid" data-debug="Download Completed"></div>
 		</div>
 		<script src="js/cdmx.js"></script>
 	</body>
