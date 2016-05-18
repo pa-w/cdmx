@@ -13,7 +13,7 @@ CREATE TABLE zmvm_grid AS
 		(a.geom).geom
 	FROM 
 		(SELECT 
-			ST_Dump (makegrid (geom, 10000)) as geom 
+			ST_Dump (makegrid (geom, 20000)) as geom 
 		FROM 
 			(SELECT ST_Union (m.geom) as geom FROM mex_municipio m, zmvm z WHERE m.cvegeo = z.cvegeo) b
 		) a
