@@ -46,7 +46,20 @@ $(document).ready (function () {
 			lines: {
 				calidad: function (x, d, a) {
 					x.values.indice.value = x.values.indice.value ? x.values.indice.value : 0;
-					return { "label": x.key, "value": x.values.indice.value, "y": a.scale (parseInt (x.values.indice.value)), "class": x.values.calidad.value.toLowerCase (), "r": x.values.indice.value / 10, "data": {} }	
+					return {
+						"label": x.key, 
+						"value": x.values.indice.value, 
+						"y": a.scale (parseInt (x.values.indice.value)), 
+						"class": x.values.calidad.value.toLowerCase () + 
+							" estacion est_" + x.key, 
+						"r": x.values.indice.value / 10, 
+						"data": {
+							"parse": [
+								{"control_element": ".estacion", "element_remove_class": "highlight"},
+								{"control_element": ".est_" + x.key, "element_add_class": "highlight"}
+							]
+						}
+					}	
 				}
 			},
 			maps: {
@@ -62,6 +75,18 @@ $(document).ready (function () {
 						return {"class": ent + " " + zmvm + " mun_" + e.properties.cvegeo };
 					} else if (e.properties.clave !== undefined) {
 					/* estaciones de monitoreo */
+						if (this.data ["a_"+ a]) {
+							var index = this.data["a_" + a][e.properties.clave];
+							if (index) {
+								
+								return {
+									"class": "estacion est_" + e.properties.clave +" "+
+										index.calidad.value.toLowerCase (),
+									"r": parseInt (index.indice.value) / 6 
+								}
+							} 
+							return {};
+						}
 						return {"r": 3, "class": "estacion est_" + e.properties.clave} 
 					} else if (e.properties.simat !== undefined ) {
 					/* grid */
@@ -73,9 +98,14 @@ $(document).ready (function () {
 							cls = "pt ", 
 							indices = [], 
 							parse = [
-								{"control_element": ".estacion", 
-								"element_attrs": {"r": "3" } }
+								{"control_element": ".estacion", "element_remove_class": "highlight"}
 							];
+						for (var s in e.properties.simat) {
+							parse.push ({
+								"control_element": ".est_" + e.properties.simat [s].cve,
+								"element_add_class": "highlight"
+							});
+						}
 							
 						for (var i = 0; i < 100; i++) {
 							var col = "a_" + i;
@@ -88,11 +118,6 @@ $(document).ready (function () {
 									scale.domain ([0, domain (index)]);
 									indices.push (index / (scale (e.properties.simat [s].dist) + 1));
 								}
-								parse.push ({
-									"control_element": ".est_" + e.properties.simat [s].cve,
-									"element_attrs": {"fill": "purple", "r": "10"}
-								});
-
 							}
 							var maxIndex = Math.max.apply (null, indices);
 							scale.domain ([0, 80]).range ([0, 1, 2, 3, 4, 5]); 
@@ -109,7 +134,16 @@ $(document).ready (function () {
 			}
 		},
 		callbacks: {
-			air: function (rows) {
+			air: function (rows, id) {
+				var worstCalidad = 'BUENA', worstIndex = 0;
+				for (var i in rows) {
+					if (parseInt (rows [i].indice) > worstIndex) {
+						worstCalidad = rows [i].calidad;
+						worstIndex = parseInt (rows [i].indice);
+					}
+				}
+				$("#"+ id +" .calidad").remove ();
+				$("#"+ id).append ($("<h3 class='calidad " + worstCalidad.toLowerCase () + "'>").text (worstCalidad +" (" + worstIndex + " puntos)"));
 				return new Nestify (rows, ["clave"], ["clave", "delegacion", "calidad", "parametro", "indice"]).data;
 			},
 			initScrolls: function () { 
@@ -123,7 +157,8 @@ $(document).ready (function () {
 					{"control_element": ".a_" + idx + "_2", "element_attrs": {"r": 3} },
 					{"control_element": ".a_" + idx + "_3", "element_attrs": {"r": 4} }, 
 					{"control_element": ".a_" + idx + "_4", "element_attrs": {"r": 6} },
-					{"control_element": ".a_" + idx + "_5", "element_attrs": {"r": 8} }
+					{"control_element": ".a_" + idx + "_5", "element_attrs": {"r": 8} },
+					{"parse": "#quantify_simat_" + idx + ".active"}
 				]
 				var dt = {
 					"download": data.index,
@@ -139,13 +174,32 @@ $(document).ready (function () {
 					"parse": parse
 				},
 				attr = {
-					"class": "download"
+					"class": "download",
+					"id": "a_" + idx
 				}, 
 
 				elm = d3.select (element);
-				var d = data.index.split ("."), x = d[0].split ("/")[2];
+				var d = data.index.split ("."), x = d[0].split ("/")[2].split ("-");
 
-				elm.attr(attr).text (x + " " +parseInt (d [1])/100);
+				var title = document.createElement ("h3");
+				title.innerText = x [1]+"/"+ x [2] +" "+ d[1].substring (0, 2) + ":00";
+
+				element.appendChild (title);
+				
+				var quantifier = document.createElement ("span");
+				element.appendChild (quantifier);
+				d3.select (quantifier)
+					.attr({
+						"id": "quantify_simat_" + idx, 
+						"class": "quantifier",
+						"data-control_chart": "cdmx",
+						"data-quantify": "simat", 
+						"data-quantifier": "categorize", 
+						"data-quantifier_args": idx,
+					});
+
+				elm.attr(attr)
+				//.text (x + " " + parseInt (d [1])/100);
 
 				if (idx == total - 1) dt ["download_parse"] = "#download_callback";
 				

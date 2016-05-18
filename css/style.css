@@ -10,20 +10,44 @@ body {
 	top: 0vh;
 	left: 0;
 	width: 100%;
-	height: 50%;
+	height: 75%;
 	padding: 0 !important;
 	margin: 0 !important;
+	border-bottom: 3px solid rgba(15,15,15,0.5);
 }
 #movie {
-	padding-top: 50vh;
-	padding-bottom: 100vh;
+	padding-top: 100vh;
+	padding-bottom: 25vh;
 }
 #movie > div {
 	padding: 5px;
 	margin: 5px;
+	height: 23vh;
+	border: 1px solid rgb(15,15,15);
 }
 #movie > div.highlight {
-	color: red;
+	background-color: rgba(233,233,233,0.8);
+
+}
+#movie h3 {
+	text-align: center;
+}
+#message_container {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(233,233,233, 0.5);
+}
+#message_container > div {
+	position: absolute;
+	top: 40%;
+	left: 20%;
+	width: 60%;
+	height: 20%;
+	background-color: rgba(233,233,233,0.8);
+	border: 1px solid rgba(15,15,15,0.8);
+	text-align: center;
+	padding: 10%;
 }
 .axis path {
 	display: none;
@@ -43,17 +67,24 @@ rect.column,rect.square {
 }
 circle {
 }
-circle.regular { 
+circle.regular, #movie .regular { 
 	fill: rgba(255,255,102,0.5);
-	stroke: black;
+	stroke: rgba(15,15,15,0.5);
+	color: rgb(255,255,102);
 }
-circle.buena {
+circle.buena, #movie .buena {
 	fill: rgba(51,204,51, 0.5);
-	stroke: black;
+	stroke: rgba(15,15,15,0.5);
+	color: rgba(51,204,51,0.5);
 }
-circle.mala {
+circle.mala, #movie .mala {
 	fill: rgba(255,0,0,0.5);
-	stroke: black;
+	stroke: rgba(15,15,15,0.5);
+	color: rgba(255,0,0,0.5);
+}
+circle.estacion.highlight {
+	stroke-width: 3px;
+	stroke: red;
 }
 path.line {
 	display: none;
@@ -62,6 +93,12 @@ text.note {
 	font-size: 8px;
 }
 text.value {
+	font-size: 8px;
+	fill: rgb(0, 0, 0);
+}
+text.label {
+	font-weight: normal;
+	font-size: 10px;
 }
 #legend {
 	position: absolute;
@@ -70,8 +107,8 @@ text.value {
 	width: 100%;
 	height: 30px;
 	padding: 1%;
-	border: 1px solid black;
-	background-color: rgba(255,255,255,0.8);
+	border: 1px solid rgba(15,15,15,0.5);
+	background-color: rgba(255,255,255,0.5);
 }
 .legend > div {
 	float: left;
@@ -100,9 +137,6 @@ text.value {
 }
 .simat path, .grid path {
 	display: none;
-}
-.simat circle {
-	fill: red;
 }
 .grid circle {
 	fill: rgba(25,25,25,0.15);
@@ -138,4 +172,8 @@ text.value {
 		width: 50%;
 		height: 100%;
 	}	
+	#movie {
+		width: 50%;
+	}
+
 }

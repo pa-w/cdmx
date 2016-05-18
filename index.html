@@ -48,11 +48,21 @@
 			<div id="calidad" data-chart="lines"></div>
 			<!-- -->
 		</div>
-		<div id="movie" data-movie></div>
+		<div id="message_container">
+			<div id="message">
+				Obteniendo datos...
+			</div>
+		</div>
+		<div id="movie" data-movie data-trigger_position=".87"></div>
 		<div id="ctrls">
 			<div data-onload data-download="data/aire.csv" data-download_clone="div" data-download_clone_into="#movie" data-download_clone_callback="cloner" data-download_parse="#aire_callback"></div>
 			<div id="aire_callback" data-callback="initScrolls" data-parse_sequence=".download"></div>
-			<div id="download_callback" data-parse="#quantify_grid" data-debug="Download Completed"></div>
+			<div id="scroll_to_top" data-control_scroll="movie" data-scroll_to="a_0" data-debug="Scrolling to top"></div>
+			<div id="processing_message" data-control_element="#message" data-text="Processing data"></div>
+			<div id="hide_message" data-control_element="#message_container" data-element_hide></div>
+			<div id="quantify_scenes" data></div>
+			<div id="activate_quantifiers" data-control_element=".quantifier" data-element_add_class="active"></div>
+			<div id="download_callback" data-parse_sequence="#processing_message,#quantify_grid,#quantify_scenes,#scroll_to_top,#activate_quantifiers,#hide_message" data-debug="Download Completed"></div>
 		</div>
 		<script src="js/cdmx.js"></script>
 		<svg id="effects">
