@@ -15,9 +15,12 @@ body {
 	margin: 0 !important;
 }
 #movie {
+	padding-top: 50vh;
 	padding-bottom: 100vh;
 }
 #movie > div {
+	padding: 5px;
+	margin: 5px;
 }
 #movie > div.highlight {
 	color: red;

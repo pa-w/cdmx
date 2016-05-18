@@ -66,17 +66,6 @@ $(document).ready (function () {
 					this.initScroll ();
 				}
 				*/
-			},
-			latest: {
-				type: d3.csv,
-				url: "data/aire/latests.csv",
-				id: "latest",
-				processor: function (rows) { 
-					rows = rows.sort (function (a, b) { return d3.ascending (parseInt (a.indice), parseInt (b.indice)); })
-					var nest = new Nestify (rows, ["clave"], ["clave", "delegacion", "calidad", "parametro", "indice"]);
-
-					return nest.data;
-				}
 			}
 		},
 		prequantifiers: { 
@@ -163,11 +152,6 @@ $(document).ready (function () {
 			initScrolls: function () { 
 				this.initScroll ();
 			},
-			table: function (element, data, idx, total) {
-				for (var x in data) {
-					$(element).append ($("<td>").text (data [x]));
-				}
-			},
 			cloner: function (element, data, idx, total) { 
 				var parse = [
 					//{"control_element": ".pt", "element_attrs": {"r": 0}, "debug": "Resetting"},
@@ -196,7 +180,9 @@ $(document).ready (function () {
 				}, 
 
 				elm = d3.select (element);
-				elm.attr(attr).text (data.index);
+				var d = data.index.split ("."), x = d[0].split ("/")[2];
+
+				elm.attr(attr).text (x + " " +parseInt (d [1])/100);
 
 				if (idx == total - 1) dt ["download_parse"] = "#download_callback";
 				
