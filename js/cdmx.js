@@ -24,48 +24,6 @@ $(document).ready (function () {
 				key: "stdin",
 				plot: "points",
 				enumerator: "geometries"
-			},
-			index: {
-				type: d3.csv,
-				url: "data/aire.csv",
-				id: "index",
-				/*
-				processor: function (rows) {
-					//var limit = rows.length;
-					var limit = 20;
-					for (var i = 0; i < limit; i++) {
-						var dx = {
-							"download": rows [i]["index"], 
-							"download_id": "a_" + i, 
-							"download_processor": "air", 
-							"debug": "download " + i 
-						}
-						if (i == limit - 1) dx ["download_parse"] = "#download_callback";
-
-						var d = $("<div id='download_" + i + "' class='download'>")
-							.data (dx)
-
-						$("#ctrls").append (d);
-						var parse = [
-							//{"control_element": ".pt", "element_attrs": {"r": 0}, "debug": "Resetting"},
-							{"control_element": ".a_" + i + "_0", "element_attrs": {"r": 0} },
-							{"control_element": ".a_" + i + "_1", "element_attrs": {"r": 1} },
-							{"control_element": ".a_" + i + "_2", "element_attrs": {"r": 2} },
-							{"control_element": ".a_" + i + "_3", "element_attrs": {"r": 3} }, 
-							{"control_element": ".a_" + i + "_4", "element_attrs": {"r": 4} },
-							{"control_element": ".a_" + i + "_5", "element_attrs": {"r": 5} }
-						]
-						var x = rows [i]["index"].split ("."), 
-							date = x [0].split ("/"), time = x [1], desc = time;
-
-						$("<div id='scene_"+ i +"'>")
-							.data ({parse: parse, debug: "Scene " + i})
-							.text (desc)
-							.appendTo ("#movie");
-					}
-					this.initScroll ();
-				}
-				*/
 			}
 		},
 		prequantifiers: { 
@@ -112,12 +70,17 @@ $(document).ready (function () {
 						*/
 						var scale = d3.scale.quantize ().range ([1, 2, 3])
 							debug = "...",
-							cls = "pt ", indices = [], parse = [
-											{"control_element": ".estacion", 
-											"element_attrs": {"r": "3" } }
-											];
-						for (var i = 0; i < 10; i++) {
-								var col = "a_" + i;
+							cls = "pt ", 
+							indices = [], 
+							parse = [
+								{"control_element": ".estacion", 
+								"element_attrs": {"r": "3" } }
+							];
+							
+						for (var i = 0; i < 100; i++) {
+							var col = "a_" + i;
+							scale = d3.scale.quantize ()
+							indices = [];
 							for (var s in e.properties.simat) {
 								if (this.data [col] && this.data [col][e.properties.simat [s].cve]) {
 									var index = this.data [col][e.properties.simat [s].cve].indice.value,
@@ -155,12 +118,12 @@ $(document).ready (function () {
 			cloner: function (element, data, idx, total) { 
 				var parse = [
 					//{"control_element": ".pt", "element_attrs": {"r": 0}, "debug": "Resetting"},
-					{"control_element": ".a_" + idx + "_0", "element_attrs": {"r": 0} },
-					{"control_element": ".a_" + idx + "_1", "element_attrs": {"r": 1} },
-					{"control_element": ".a_" + idx + "_2", "element_attrs": {"r": 2} },
-					{"control_element": ".a_" + idx + "_3", "element_attrs": {"r": 3} }, 
-					{"control_element": ".a_" + idx + "_4", "element_attrs": {"r": 4} },
-					{"control_element": ".a_" + idx + "_5", "element_attrs": {"r": 5} }
+					{"control_element": ".a_" + idx + "_0", "element_attrs": {"r": 1} },
+					{"control_element": ".a_" + idx + "_1", "element_attrs": {"r": 2} },
+					{"control_element": ".a_" + idx + "_2", "element_attrs": {"r": 3} },
+					{"control_element": ".a_" + idx + "_3", "element_attrs": {"r": 4} }, 
+					{"control_element": ".a_" + idx + "_4", "element_attrs": {"r": 6} },
+					{"control_element": ".a_" + idx + "_5", "element_attrs": {"r": 8} }
 				]
 				var dt = {
 					"download": data.index,

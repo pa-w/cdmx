@@ -32,6 +32,9 @@ body {
 	stroke: #777;
 	stroke-dasharray: 1,1;
 }
+.grid circle {
+	filter:url(#blur);
+}
 rect.background {
 	display: none !important;
 }
