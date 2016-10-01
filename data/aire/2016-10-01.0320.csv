@@ -1,0 +1,35 @@
+clave,delegacion,calidad,parametro,indice
+AJU,Tlalpan,MANTENIMIENTO,,
+AJM,Tlalpan,BUENA,PM10,25
+BJU,Benito Juárez,BUENA,PM10,31
+CAM,Azcapotzalco,BUENA,CO,8
+CCA,Coyoacán,BUENA,SO2,2
+COY,Coyoacán,MANTENIMIENTO,,
+CUA,Cuajimalpa,BUENA,PM10,25
+GAM,Gustavo A. Madero,MANTENIMIENTO,,
+HGM,Cuauhtémoc,BUENA,PM10,26
+IZT,Iztacalco,BUENA,PM10,26
+MER,Venustiano Carranza,BUENA,PM10,43
+MGH,Miguel Hidalgo,BUENA,PM10,25
+MPA,Milpa Alta,BUENA,PM10,30
+PED,Álvaro Obregón,BUENA,CO,5
+SFE,Cuajimalpa,BUENA,CO,7
+SJA,Gustavo A. Madero,BUENA,SO2,1
+TAH,Tláhuac,BUENA,PM10,38
+UAX,Coyoacán,BUENA,CO,2
+UIZ,Iztapalapa,BUENA,CO,13
+ACO,Acolman,BUENA,PM10,28
+ATI,Atizapán,BUENA,PM10,28
+CHO,Chalco,BUENA,PM10,38
+CUT,Tepotzotlán,BUENA,PM10,35
+FAC,Naucalpan,BUENA,PM10,19
+INN,Ocoyoacac,BUENA,PM10,16
+LLA,Ecatepec,BUENA,SO2,1
+LPR,Anexo de Tlalnepantla,BUENA,CO,5
+MON,Texcoco,BUENA,CO,5
+NEZ,Nezahualcóyotl,BUENA,CO,11
+SAG,Ecatepec,BUENA,PM10,29
+TLA,Tlalnepantla,BUENA,PM10,48
+TLI,Tultitlán,BUENA,PM10,33
+VIF,Coacalco,BUENA,PM10,29
+XAL,Ecatepec,REGULAR,PM10,57
